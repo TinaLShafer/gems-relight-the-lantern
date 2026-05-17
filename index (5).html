@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relight the Lantern · New Moon in Taurus · Soul Growth Circle</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:          #06090f;
+  --dark-mid:      #0a1018;
+  --dark-warm:     #0e1420;
+  --earth:         #1a1408;
+  --earth-mid:     #241c0c;
+  --gold:          #C9A84C;
+  --gold-light:    #F0C060;
+  --gold-soft:     #E8D090;
+  --gold-pale:     #f5e8b8;
+  --parchment:     #F5F0E8;
+  --ink:           rgba(245,240,232,0.92);
+  --ink-mid:       rgba(245,240,232,0.72);
+  --ink-soft:      rgba(245,240,232,0.45);
+  --sage:          #4a7a60;
+  --sage-light:    #6a9a80;
+  --teal:          #2a5a4a;
+  --border:        rgba(201,168,76,0.2);
+  --border-strong: rgba(201,168,76,0.45);
+  --amber-glow:    rgba(200,130,50,0.15);
+  --earth-glow:    rgba(100,80,30,0.2);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body {
+  background: var(--dark);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#starCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══ HERO / HEADER ═══ */
+.hero {
+  background: linear-gradient(175deg, #0d1a0e 0%, #0a1210 50%, #06090f 100%);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 40px rgba(0,0,0,0.6);
+  padding: 24px 40px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.hero::before {
+  content:'';
+  position:absolute;
+  top:-40%; right:5%;
+  width:320px; height:320px;
+  background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+.hero::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:60px;
+  background: radial-gradient(ellipse at 30% 100%, rgba(74,122,96,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-lantern {
+  position: absolute;
+  top: -6px;
+  right: 0;
+  width: 88px;
+  height: 132px;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 0 18px rgba(240,160,40,0.7)) drop-shadow(0 0 40px rgba(180,60,10,0.4));
+}
+
+@keyframes flicker {
+  0%,100%{transform:scaleX(1) scaleY(1) translateX(0);}
+  25%{transform:scaleX(.94) scaleY(1.05) translateX(1px);}
+  50%{transform:scaleX(1.05) scaleY(.96) translateX(-1px);}
+  75%{transform:scaleX(.97) scaleY(1.04) translateX(.5px);}
+}
+.flame-inner { transform-origin: center bottom; animation: flicker 1.9s ease-in-out infinite; }
+@keyframes glowPulse {
+  0%,100%{opacity:.6;}
+  50%{opacity:1;}
+}
+.hero-glow { animation: glowPulse 2.2s ease-in-out infinite; }
+
+.gems-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  margin-bottom: 10px;
+  background: rgba(74,122,96,0.12);
+  border: 1px solid rgba(74,122,96,0.35);
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--sage-light);
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 40px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.1;
+  margin-bottom: 5px;
+  max-width: 640px;
+}
+.hero h1 em { font-style:normal; color:var(--gold-light); }
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-top: 2px;
+}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  padding: 12px 18px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  position: relative;
+}
+.tab:hover { color: var(--gold-soft); }
+.tab.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+@keyframes sparkle-burst {
+  0%   { opacity:1; transform:translate(-50%,-50%) scale(0); }
+  60%  { opacity:1; transform:translate(-50%,-50%) scale(1); }
+  100% { opacity:0; transform:translate(-50%,-50%) scale(1.4); }
+}
+.sparkle {
+  position:absolute;
+  pointer-events:none;
+  z-index:20;
+  top:50%; left:50%;
+  width:36px; height:36px;
+  animation: sparkle-burst 0.55s ease-out forwards;
+}
+.sparkle svg { width:100%; height:100%; }
+
+/* ═══ MAIN ═══ */
+main {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 52px 28px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+.stagger {
+  opacity:0; transform:translateY(8px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.tab-panel.active.on .stagger { opacity:1; transform:none; }
+.tab-panel.active.on .stagger.s2 { transition-delay:.1s; }
+.tab-panel.active.on .stagger.s3 { transition-delay:.2s; }
+.tab-panel.active.on .stagger.s4 { transition-delay:.3s; }
+.tab-panel.active.on .stagger.s5 { transition-delay:.4s; }
+.tab-panel.active.on .stagger.s6 { transition-delay:.5s; }
+.tab-panel.active.on .stagger.s7 { transition-delay:.6s; }
+
+/* ═══ COMPONENTS ═══ */
+.section-badge {
+  display:inline-flex; align-items:center; gap:12px; margin-bottom:18px;
+}
+.badge-num {
+  width:32px; height:32px; border-radius:8px;
+  background:rgba(255,255,255,0.04); border:1px solid var(--border-strong);
+  color:var(--gold); font-family:'Cormorant Garamond',serif;
+  font-size:15px; font-weight:500;
+  display:flex; align-items:center; justify-content:center;
+}
+.badge-label {
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:400;
+}
+
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(24px,2.8vw,36px);
+  font-weight:400; font-style:italic;
+  color:var(--parchment); line-height:1.18; margin-bottom:14px;
+}
+.section-title em { font-style:normal; color:var(--gold-light); }
+
+.section-lede {
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px; font-weight:300; font-style:italic;
+  color:var(--ink-mid); line-height:1.75; margin-bottom:30px;
+}
+
+.prose {
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px; font-weight:400; line-height:1.85;
+  color:var(--ink-mid); margin-bottom:26px;
+}
+.prose p{margin-bottom:1.2em;}
+.prose p:last-child{margin-bottom:0;}
+.prose strong{font-weight:600;color:var(--parchment);}
+.prose em{font-style:italic;color:var(--gold-soft);}
+
+.anim-card {
+  background:linear-gradient(135deg,rgba(20,28,14,0.8) 0%,rgba(10,16,12,0.85) 100%);
+  border:1px solid var(--border); border-radius:14px;
+  padding:30px 26px; margin-bottom:30px;
+  position:relative; overflow:hidden; min-height:160px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.4);
+}
+.anim-card::before {
+  content:''; position:absolute; top:-30%; right:-5%;
+  width:220px; height:220px;
+  background:radial-gradient(circle,rgba(74,122,96,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+.noticing {
+  background:rgba(74,122,96,0.08);
+  border:1px solid rgba(74,122,96,0.25);
+  border-left:3px solid var(--sage);
+  border-radius:0 10px 10px 0;
+  padding:20px 22px; margin:24px 0;
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px; font-style:italic;
+  color:var(--ink-mid); line-height:1.75;
+}
+.noticing .noticing-label {
+  font-family:'Jost',sans-serif; font-size:9px;
+  letter-spacing:.26em; text-transform:uppercase;
+  color:var(--sage-light); font-style:normal;
+  font-weight:500; margin-bottom:8px; display:block;
+}
+
+.takeaway {
+  background:linear-gradient(135deg,rgba(20,28,14,0.8) 0%,rgba(14,20,10,0.7) 100%);
+  border:1px solid var(--border-strong); border-radius:12px;
+  padding:24px 28px; margin:28px 0;
+  box-shadow:0 0 30px rgba(74,122,96,0.05);
+}
+.takeaway-label{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px;}
+.takeaway-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--parchment);line-height:1.75;}
+
+.about-gems{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:22px 26px;margin:26px 0;}
+.about-gems-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--parchment);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.about-gems-body{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--ink-mid);line-height:1.75;}
+
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-strong),transparent);margin:32px 0;}
+
+/* Sky cards */
+.sky-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:28px;
+}
+.sky-card {
+  background:rgba(10,16,12,0.7);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:18px 16px;
+}
+.sky-card-icon{font-size:20px;margin-bottom:8px;display:block;}
+.sky-card-planet{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:5px;}
+.sky-card-body{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--ink-mid);line-height:1.6;}
+
+/* Reflection prompts */
+.prompt-wrap { display:flex; flex-direction:column; gap:16px; margin:24px 0; }
+.prompt-card {
+  background:rgba(10,16,12,0.6);
+  border:1px solid rgba(74,122,96,0.2);
+  border-left:3px solid var(--sage);
+  border-radius:0 10px 10px 0;
+  padding:20px 22px;
+}
+.prompt-num{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-light);font-weight:500;margin-bottom:8px;}
+.prompt-text{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--parchment);line-height:1.6;}
+.prompt-sub{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+
+/* ═══ LANTERN TAB ═══ */
+.lantern-section {
+  display:flex; flex-direction:column; align-items:center;
+  padding-top:10px;
+}
+.lantern-intro {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px; font-style:italic;
+  color:var(--ink-mid); line-height:1.8;
+  text-align:center; margin-bottom:2rem; max-width:500px;
+}
+
+.lantern-wrap {
+  position:relative; width:120px; height:160px;
+  margin-bottom:1.5rem; cursor:pointer;
+}
+.lantern-svg {
+  width:100%; height:100%;
+  filter: drop-shadow(0 0 0px rgba(230,160,50,0));
+  transition: filter 1.5s ease;
+}
+.lantern-svg.lit {
+  filter: drop-shadow(0 0 35px rgba(240,140,40,0.9)) drop-shadow(0 0 70px rgba(180,60,10,0.5)) drop-shadow(0 0 100px rgba(80,120,60,0.2));
+}
+.flame-group-l { opacity:0; transition:opacity 1s ease; }
+.flame-group-l.visible { opacity:1; }
+.flame-inner-l { transform-origin:center bottom; animation:flicker 1.8s ease-in-out infinite; }
+.lantern-glow {
+  position:absolute; inset:-20px; border-radius:50%;
+  background:radial-gradient(circle,rgba(230,160,50,0) 0%,transparent 70%);
+  transition:background 1.5s ease; pointer-events:none;
+}
+.lantern-glow.lit {
+  background:radial-gradient(circle,rgba(230,160,50,0.22) 0%,rgba(74,122,96,0.05) 50%,transparent 70%);
+}
+
+.particles-l { position:absolute; inset:0; pointer-events:none; overflow:visible; }
+.particle-l {
+  position:absolute; width:3px; height:3px; border-radius:50%;
+  background:var(--gold-light); opacity:0; left:50%; bottom:10px;
+}
+.particle-l.rising {
+  animation:rise var(--rdur) ease-out forwards;
+  animation-delay:var(--rdelay);
+}
+@keyframes rise {
+  0%{opacity:0.8;transform:translateX(var(--rx)) translateY(0) scale(1);}
+  100%{opacity:0;transform:translateX(calc(var(--rx)*2)) translateY(-80px) scale(0.3);}
+}
+
+.tap-hint-l {
+  font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:rgba(245,240,232,0.35); text-align:center; margin-bottom:2rem;
+  transition:opacity 0.5s ease;
+}
+.tap-hint-l.hidden{opacity:0;pointer-events:none;}
+
+.lantern-step{width:100%;max-width:520px;opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease;pointer-events:none;height:0;overflow:hidden;}
+.lantern-step.visible{opacity:1;transform:translateY(0);pointer-events:all;height:auto;overflow:visible;}
+
+.intention-q {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,3.5vw,1.4rem); font-weight:300; font-style:italic;
+  text-align:center; color:var(--gold-light); line-height:1.6; margin-bottom:0.5rem;
+}
+.intention-sub {
+  font-size:0.8rem; text-align:center; color:rgba(245,240,232,0.4);
+  letter-spacing:0.05em; margin-bottom:1.5rem;
+}
+
+textarea.intention-input {
+  width:100%;
+  background:rgba(245,240,232,0.04);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:2px;
+  color:#ffffff;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem; font-weight:300; line-height:1.7;
+  padding:1.2rem 1.4rem; resize:none; outline:none; min-height:140px;
+  transition:border-color .3s ease,background .3s ease; letter-spacing:.02em;
+}
+textarea.intention-input::placeholder{color:rgba(245,240,232,0.2);font-style:italic;}
+textarea.intention-input:focus{border-color:rgba(201,168,76,0.5);background:rgba(245,240,232,0.06);}
+
+.seal-btn {
+  display:block; margin:1.5rem auto 0;
+  background:transparent; border:1px solid rgba(201,168,76,0.4);
+  color:var(--gold-light); font-family:'Jost',sans-serif;
+  font-size:0.7rem; font-weight:300; letter-spacing:0.25em; text-transform:uppercase;
+  padding:0.8rem 2.5rem; cursor:pointer; transition:all .3s ease;
+}
+.seal-btn:hover{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.7);color:var(--gold);}
+
+.sealed-msg{text-align:center;width:100%;}
+.sealed-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+.sealed-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--gold-light);margin-bottom:0.8rem;}
+.sealed-body{font-size:0.85rem;color:rgba(245,240,232,0.5);line-height:1.8;letter-spacing:.03em;margin-bottom:1.5rem;}
+.sealed-date{font-size:0.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,0.4);}
+
+.reveal-msg{width:100%;text-align:center;}
+.reveal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--gold-light);margin-bottom:.5rem;}
+.reveal-date-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1.5rem;}
+.reveal-intention-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.8;color:var(--parchment);text-align:left;margin-bottom:1.2rem;letter-spacing:.02em;}
+.reveal-question{font-size:.85rem;color:rgba(245,240,232,.45);line-height:1.8;font-style:italic;font-family:'Cormorant Garamond',serif;}
+
+/* Footer CTA */
+.footer-cta{margin-top:36px;padding:26px 28px;background:linear-gradient(135deg,rgba(20,28,14,0.8) 0%,rgba(10,16,10,0.8) 100%);border:1px solid var(--border-strong);border-radius:14px;text-align:center;}
+.footer-cta p{font-family:'Cormorant Garamond',serif;font-size:15.5px;font-style:italic;color:var(--ink-mid);margin-bottom:14px;}
+.footer-cta p strong{color:var(--gold-light);font-style:normal;}
+.cta-btn{display:inline-block;padding:11px 28px;background:linear-gradient(135deg,rgba(74,122,96,0.2) 0%,rgba(74,122,96,0.08) 100%);border:1px solid rgba(74,122,96,0.4);color:var(--sage-light);font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;border-radius:999px;text-decoration:none;transition:background .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(74,122,96,0.1);}
+.cta-btn:hover{background:linear-gradient(135deg,rgba(74,122,96,0.3) 0%,rgba(74,122,96,0.15) 100%);box-shadow:0 6px 22px rgba(74,122,96,0.2);}
+
+/* Site footer */
+.site-footer{max-width:740px;margin:0 auto;padding:28px 28px 40px;position:relative;z-index:2;border-top:1px solid var(--border);}
+.site-footer-inner{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--ink-soft);letter-spacing:.06em;}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;}
+.footer-links a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,0.4);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-disclaimer{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:rgba(245,240,232,0.25);line-height:1.7;max-width:560px;}
+.footer-copy{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,0.18);}
+
+/* Placeholder notice — remove when content is added */
+.placeholder-block {
+  background:rgba(201,168,76,0.05);
+  border:1px dashed rgba(201,168,76,0.3);
+  border-radius:8px;
+  padding:20px 24px;
+  margin:20px 0;
+  font-family:'Jost',sans-serif;
+  font-size:11px;
+  letter-spacing:.1em;
+  color:rgba(201,168,76,0.5);
+  text-align:center;
+}
+
+@media(max-width:680px){
+  .hero{padding:16px 18px 0;}
+  .hero h1{font-size:20px;}
+  .hero-lantern{width:68px;height:102px;top:-2px;}
+  main{padding:36px 18px 36px;}
+  .section-title{font-size:22px;}
+  .sky-grid{grid-template-columns:1fr;}
+  .anim-card{padding:22px 16px;min-height:140px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="starCanvas"></canvas>
+
+<header class="hero">
+  <div class="hero-inner">
+
+    <!-- Lantern SVG in header -->
+    <svg class="hero-lantern" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="0" x2="60" y2="18" stroke="#C9A84C" stroke-width="1.5" opacity="0.7"/>
+      <circle cx="60" cy="20" r="3" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.7"/>
+      <path d="M40 28 Q60 18 80 28 L76 38 Q60 30 44 38 Z" fill="#8B7340" opacity="0.9"/>
+      <path d="M44 38 L76 38 L74 42 L46 42 Z" fill="#A08840" opacity="0.8"/>
+      <rect x="38" y="42" width="44" height="90" rx="3" fill="rgba(6,9,15,0.9)" stroke="#C9A84C" stroke-width="1.2" opacity="0.9"/>
+      <rect x="40" y="44" width="40" height="86" rx="2" fill="rgba(245,230,180,0.06)"/>
+      <line x1="60" y1="42" x2="60" y2="132" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+      <line x1="49" y1="42" x2="49" y2="132" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+      <line x1="71" y1="42" x2="71" y2="132" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+      <line x1="38" y1="87" x2="82" y2="87" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="38" cy="42" r="2" fill="#C9A84C" opacity="0.7"/>
+      <circle cx="82" cy="42" r="2" fill="#C9A84C" opacity="0.7"/>
+      <circle cx="38" cy="132" r="2" fill="#C9A84C" opacity="0.7"/>
+      <circle cx="82" cy="132" r="2" fill="#C9A84C" opacity="0.7"/>
+      <ellipse class="hero-glow" cx="60" cy="92" rx="13" ry="16" fill="rgba(255,100,10,0.2)"/>
+      <g class="flame-inner">
+        <path d="M60 110 C52 106 50 98 53 90 C55 84 58 82 60 76 C62 82 65 84 67 90 C70 98 68 106 60 110Z" fill="url(#hfg)"/>
+        <path d="M60 108 C55 104 54 98 56 92 C57.5 87 59 85 60 81 C61 85 62.5 87 64 92 C66 98 65 104 60 108Z" fill="url(#hfi)"/>
+        <ellipse cx="60" cy="101" rx="3.5" ry="5" fill="rgba(255,240,200,0.92)"/>
+      </g>
+      <rect x="56" y="110" width="8" height="9" rx="1" fill="#D4B896" opacity="0.8"/>
+      <path d="M36 132 L84 132 L88 140 L32 140 Z" fill="#8B7340" opacity="0.8"/>
+      <rect x="30" y="140" width="60" height="6" rx="2" fill="#A08840" opacity="0.7"/>
+      <path d="M55 18 L60 8 L65 18 Z" fill="#C9A84C" opacity="0.5"/>
+      <defs>
+        <linearGradient id="hfg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFF5C0"/>
+          <stop offset="30%" stop-color="#FF8C00" stop-opacity=".95"/>
+          <stop offset="65%" stop-color="#E84000" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#8B1A00" stop-opacity=".8"/>
+        </linearGradient>
+        <linearGradient id="hfi" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="white"/>
+          <stop offset="40%" stop-color="#FFD040" stop-opacity=".95"/>
+          <stop offset="80%" stop-color="#FF6010" stop-opacity=".8"/>
+          <stop offset="100%" stop-color="#CC3000" stop-opacity=".5"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <a class="gems-pill" href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener" style="text-decoration:none;">🌑 Grounded Earth · Moving Sky ↗</a>
+    <div class="hero-eyebrow">A GEMS Transmission · Soul Growth Circle</div>
+    <h1>Relight <em>the Lantern</em></h1>
+    <p class="hero-sub">New Moon in Taurus · May 16, 2026 · What the earth is asking you to begin</p>
+
+    <nav class="tab-nav" id="tabNav">
+      <button type="button" class="tab active" data-tab="sky">The Sky</button>
+      <button type="button" class="tab" data-tab="teaching">The Teaching</button>
+      <button type="button" class="tab" data-tab="reflection">Reflection</button>
+      <button type="button" class="tab" data-tab="lantern">The Lantern 🕯️</button>
+      <button type="button" class="tab" data-tab="return">The Return</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 1 · THE SKY
+═══════════════════════════════════════════════ -->
+<section class="tab-panel active" data-panel="sky">
+
+  <div class="section-badge stagger">
+    <div class="badge-num">I</div>
+    <div class="badge-label">Moving Sky</div>
+  </div>
+
+  <h2 class="section-title stagger s2">Something in you has been <em>waiting</em> for permission to begin.</h2>
+  <p class="section-lede stagger s3">The New Moon in Taurus doesn't push. It doesn't announce itself. It simply creates the conditions for something to take root — quietly, in the dark, before anyone can see it.</p>
+
+  <div class="sky-grid stagger s4">
+    <div class="sky-card">
+      <span class="sky-card-icon">🌑</span>
+      <div class="sky-card-planet">New Moon · Taurus</div>
+      <div class="sky-card-body">New beginning energy. Earth sign. Slow, sensory, rooted. What you plant here grows through the whole cycle.</div>
+    </div>
+    <div class="sky-card">
+      <span class="sky-card-icon">⚡</span>
+      <div class="sky-card-planet">Uranus · Gemini</div>
+      <div class="sky-card-body">Just moved in April. A seven-year shift in how we communicate and connect. Something restless underneath the stillness.</div>
+    </div>
+    <div class="sky-card">
+      <span class="sky-card-icon">🔥</span>
+      <div class="sky-card-planet">Saturn · Aries</div>
+      <div class="sky-card-body">Structure meeting fire. The tension between urgency and patience. Your system can feel both at once right now.</div>
+    </div>
+    <div class="sky-card">
+      <span class="sky-card-icon">🌕</span>
+      <div class="sky-card-planet">Blue Moon · Sagittarius</div>
+      <div class="sky-card-body">May 31st. What you plant tonight opens then. From rooted Taurus earth into wide-open Sagittarius fire.</div>
+    </div>
+  </div>
+
+  <div class="noticing stagger s4">
+    <span class="noticing-label">🌿 What the sky is actually asking</span>
+    Taurus is the body remembering what it already knows. That you belong to the earth. That your nervous system was never designed to live entirely inside urgency, pressure, noise, and screens. That there are seasons for pushing outward and seasons for returning inward again. This new moon is a season for returning.
+  </div>
+
+  <div class="takeaway stagger s6">
+    <div class="takeaway-label">🕯️ The Essence</div>
+    <p class="takeaway-text">Not laziness. Not lack of ambition. Not failure to keep up. A longing to return to a more natural rhythm of being. To wake with the light. To touch the earth. To tend what matters slowly enough for relationship to form around it. The nervous system understands seasons far better than the mind does.</p>
+  </div>
+
+  <div class="divider stagger s7"></div>
+
+  <div class="about-gems stagger s7">
+    <div class="about-gems-title">🌍 About GEMS</div>
+    <p class="about-gems-body">GEMS — Grounded Earth Moving Sky — is a transmission inside Soul Growth Circle. I study what the sky is doing, find where I can feel it landing in my own life and body, and share it as a lived translation. Not as astrology teaching. As something your nervous system can actually work with.</p>
+    <p class="about-gems-body" style="margin-top:10px;">Return to Stillness — seven short practices to help you find your way back to yourself — is waiting inside.</p>
+  </div>
+
+  <div class="footer-cta stagger s7">
+    <p>Soul Growth Circle is free to join. <strong>GEMS</strong> and <strong>Return to Stillness</strong> are waiting inside.</p>
+    <a href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener" class="cta-btn">The door is open. 🕯️</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 2 · THE TEACHING
+═══════════════════════════════════════════════ -->
+<section class="tab-panel" data-panel="teaching">
+
+  <div class="section-badge stagger">
+    <div class="badge-num">II</div>
+    <div class="badge-label">Grounded Earth</div>
+  </div>
+
+  <h2 class="section-title stagger s2">Close your eyes. <em>Listen.</em></h2>
+  <p class="section-lede stagger s3">The transmission is below. Press play, find a comfortable place to settle, and let it come to you. Everything else on this page is here when you're ready to return to it.</p>
+
+  <div class="video-cover stagger s4">
+    <div class="video-cover-header" style="background:linear-gradient(160deg,#0d1a0e 0%,#0a1210 50%,#06090f 100%);padding:24px 24px 16px;text-align:center;position:relative;overflow:hidden;">
+      <div class="planet-scene" id="planetScene"></div>
+      <div class="video-cover-title" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--parchment);text-align:center;margin-bottom:6px;position:relative;z-index:2;">Relight the Lantern</div>
+      <div class="video-cover-sub" style="font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);position:relative;z-index:2;">GEMS Transmission · New Moon in Taurus · May 16, 2026</div>
+    </div>
+    <div class="video-embed-wrap" style="position:relative;width:100%;padding-top:56.25%;background:#000;">
+      <iframe
+        src="https://www.youtube.com/embed/ugN3lNiWkZw?rel=0&modestbranding=1"
+        title="GEMS Transmission — Relight the Lantern · New Moon in Taurus"
+        style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="noticing stagger s5">
+    <span class="noticing-label">🌿 After you listen</span>
+    When you're ready, move through the Reflection tab and let the questions do some quiet work before you light the lantern. There's no rush. The moon is patient.
+  </div>
+
+  <div class="footer-cta stagger s6">
+    <p>Soul Growth Circle is free to join. <strong>Return to Stillness</strong> is waiting for you inside.</p>
+    <a href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener" class="cta-btn">The door is open. 🕯️</a>
+  </div>
+
+  <div class="footer-cta stagger s7">
+    <p>This is the nervous system work we do inside <strong>Soul Growth Circle</strong>. Free to join.</p>
+    <a href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener" class="cta-btn">Enter Soul Growth Circle</a>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 3 · REFLECTION
+═══════════════════════════════════════════════ -->
+<section class="tab-panel" data-panel="reflection">
+
+  <div class="section-badge stagger">
+    <div class="badge-num">III</div>
+    <div class="badge-label">Before You Set the Intention</div>
+  </div>
+
+  <h2 class="section-title stagger s2">Sit with these before you <em>light the lantern.</em></h2>
+  <p class="section-lede stagger s3">Don't rush to the intention. Let these questions do some quiet work first. You don't need answers. Just a moment of honest looking.</p>
+
+  <div class="prompt-wrap stagger s4">
+
+    <div class="prompt-card">
+      <div class="prompt-num">Reflection 01</div>
+      <div class="prompt-text">Where have you been rushing yourself away from what would actually nourish you?</div>
+      <div class="prompt-sub">Not what would make you more productive. What would help you feel more rooted, fed, steady, and connected.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">Reflection 02</div>
+      <div class="prompt-text">What are you longing to tend right now?</div>
+      <div class="prompt-sub">A place. A practice. A relationship. A body rhythm. A garden. A meal. A part of yourself you keep postponing.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">Reflection 03</div>
+      <div class="prompt-text">Where are you craving belonging again?</div>
+      <div class="prompt-sub">To your body. To the earth. To your home. To your work. To your neighbors. To your own pace.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-num">Reflection 04</div>
+      <div class="prompt-text">What small act of care could become your lantern between now and the full moon?</div>
+      <div class="prompt-sub">Not a dramatic promise. Not a whole-life overhaul. One honest thing you can return to.</div>
+    </div>
+
+  </div>
+
+  <div class="noticing stagger s5">
+    <span class="noticing-label">🌿 Before you continue</span>
+    Taurus doesn't need you to have it figured out before you tend it. The longing itself is the signal. What your body keeps returning to underneath all the noise, that's what wants to be named. The lantern tab is waiting whenever something true has arrived.
+  </div>
+
+  <div class="takeaway stagger s6">
+    <div class="takeaway-label">🕯️ The Thread</div>
+    <p class="takeaway-text">What feeds you. What steadies you. What brings you back into your body. What connects you to the earth and to the people around you. What stops making your life feel like a thousand open tabs. That is the nourishment this moon is asking you to tend.</p>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 4 · THE LANTERN (Intention Lock)
+═══════════════════════════════════════════════ -->
+<section class="tab-panel" data-panel="lantern">
+
+  <div class="section-badge stagger">
+    <div class="badge-num">IV</div>
+    <div class="badge-label">The Ritual</div>
+  </div>
+
+  <h2 class="section-title stagger s2">Light the lantern. <em>Seal what's true.</em></h2>
+
+  <div class="lantern-section stagger s3">
+
+    <p class="lantern-intro">
+      Tap the lantern to light it. Write your intention — one honest beginning.
+      The lantern will hold it until the Blue Moon in Sagittarius on May 31st, 2026,
+      when it opens and asks you one question.
+    </p>
+
+    <!-- Lantern -->
+    <div class="lantern-wrap" id="lanternWrap" onclick="lightLantern()">
+      <div class="lantern-glow" id="lanternGlow"></div>
+      <svg class="lantern-svg" id="lanternSvg" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+        <line x1="60" y1="0" x2="60" y2="18" stroke="#C9A84C" stroke-width="1.5" opacity="0.6"/>
+        <circle cx="60" cy="20" r="3" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.6"/>
+        <path d="M40 28 Q60 18 80 28 L76 38 Q60 30 44 38 Z" fill="#8B7340" opacity="0.9"/>
+        <path d="M44 38 L76 38 L74 42 L46 42 Z" fill="#A08840" opacity="0.8"/>
+        <rect x="38" y="42" width="44" height="90" rx="3" fill="rgba(6,9,15,0.85)" stroke="#C9A84C" stroke-width="1.2" opacity="0.9"/>
+        <rect x="40" y="44" width="40" height="86" rx="2" fill="rgba(245,230,180,0.04)"/>
+        <line x1="60" y1="42" x2="60" y2="132" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/>
+        <line x1="49" y1="42" x2="49" y2="132" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <line x1="71" y1="42" x2="71" y2="132" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <line x1="38" y1="87" x2="82" y2="87" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="38" cy="42" r="2" fill="#C9A84C" opacity="0.7"/>
+        <circle cx="82" cy="42" r="2" fill="#C9A84C" opacity="0.7"/>
+        <circle cx="38" cy="132" r="2" fill="#C9A84C" opacity="0.7"/>
+        <circle cx="82" cy="132" r="2" fill="#C9A84C" opacity="0.7"/>
+        <g class="flame-group-l" id="flameGroup">
+          <ellipse cx="60" cy="95" rx="14" ry="18" fill="rgba(255,100,10,0.22)"/>
+          <g class="flame-inner-l">
+            <path d="M60 112 C52 108 50 100 53 92 C55 86 58 84 60 78 C62 84 65 86 67 92 C70 100 68 108 60 112Z" fill="url(#fg2)"/>
+            <path d="M60 110 C55 106 54 100 56 94 C57.5 89 59 87 60 83 C61 87 62.5 89 64 94 C66 100 65 106 60 110Z" fill="url(#fi2)"/>
+            <ellipse cx="60" cy="103" rx="4" ry="6" fill="rgba(255,240,200,0.9)"/>
+          </g>
+          <rect x="56" y="112" width="8" height="10" rx="1" fill="#D4B896" opacity="0.8"/>
+          <ellipse cx="60" cy="112" rx="4" ry="1.5" fill="#C9A084" opacity="0.9"/>
+          <line x1="60" y1="112" x2="60" y2="108" stroke="#333" stroke-width="1"/>
+        </g>
+        <g id="unlitCandle">
+          <rect x="57" y="108" width="6" height="10" rx="1" fill="#8B7355" opacity="0.4"/>
+          <line x1="60" y1="108" x2="60" y2="104" stroke="#555" stroke-width="1" opacity="0.4"/>
+        </g>
+        <path d="M36 132 L84 132 L88 140 L32 140 Z" fill="#8B7340" opacity="0.8"/>
+        <rect x="30" y="140" width="60" height="6" rx="2" fill="#A08840" opacity="0.7"/>
+        <path d="M55 18 L60 8 L65 18 Z" fill="#C9A84C" opacity="0.5"/>
+        <defs>
+          <linearGradient id="fg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFF5C0"/>
+            <stop offset="30%" stop-color="#FF8C00" stop-opacity=".95"/>
+            <stop offset="65%" stop-color="#E84000" stop-opacity=".9"/>
+            <stop offset="100%" stop-color="#8B1A00" stop-opacity=".8"/>
+          </linearGradient>
+          <linearGradient id="fi2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="white"/>
+            <stop offset="40%" stop-color="#FFD040" stop-opacity=".95"/>
+            <stop offset="80%" stop-color="#FF6010" stop-opacity=".8"/>
+            <stop offset="100%" stop-color="#CC3000" stop-opacity=".5"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="particles-l" id="particlesL"></div>
+    </div>
+
+    <p class="tap-hint-l" id="tapHintL">tap the lantern to begin</p>
+
+    <!-- Step 1: Write -->
+    <div class="lantern-step" id="stepWrite">
+      <p class="intention-q">What are you ready to tend?</p>
+      <p class="intention-sub">Write the longing your body keeps carrying beneath the noise. It may be a garden. A rhythm. A relationship. A meal. A boundary. A return to your body. A way of caring for yourself you keep postponing. This is not about setting a perfect intention. It is about naming the small flame you are willing to keep lit.</p>
+      <textarea class="intention-input" id="intentionText" placeholder="I am ready to tend..." rows="5"></textarea>
+      <button class="seal-btn" onclick="sealIntention()">Seal the Lantern</button>
+    </div>
+
+    <!-- Step 2: Sealed -->
+    <div class="lantern-step" id="stepSealed">
+      <div class="sealed-msg">
+        <span class="sealed-icon">🕯️</span>
+        <div class="sealed-title">Your intention is sealed.</div>
+        <div class="sealed-body">
+          The lantern holds it now.<br>
+          Return at the Blue Moon — May 31st, 2026 —<br>
+          and see what the flame kept safe for you.
+        </div>
+        <div class="sealed-date">Sealed · New Moon in Taurus · May 16, 2026</div>
+      </div>
+    </div>
+
+    <!-- Step 3: Reveal (Blue Moon) -->
+    <div class="lantern-step" id="stepReveal">
+      <div class="reveal-msg">
+        <div class="reveal-title">The lantern opens.</div>
+        <div class="reveal-date-label">Blue Moon · Sagittarius · May 31, 2026</div>
+        <div class="reveal-intention-box" id="revealText"></div>
+        <div class="reveal-question">
+          You wrote this at the new moon in Taurus.<br>
+          Sit with it for a moment.<br><br>
+          <em>What was planted in the dark that you can now feel moving toward the light?</em>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end lantern-section -->
+
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 5 · THE RETURN
+═══════════════════════════════════════════════ -->
+<section class="tab-panel" data-panel="return">
+
+  <div class="section-badge stagger">
+    <div class="badge-num">V</div>
+    <div class="badge-label">Coming Back</div>
+  </div>
+
+  <h2 class="section-title stagger s2">The door is always <em>open.</em></h2>
+  <p class="section-lede stagger s3">You don't have to have done everything right between the new moon and the full moon. The practice is the returning. Every single time.</p>
+
+  <div class="prose stagger s3">
+    <p>The garden does not judge you for the days you don't tend it. It just keeps growing toward the light with whatever it has. That is the thing about tending. It doesn't require perfection. It requires return.</p>
+    <p>Between now and the Blue Moon on May 31st, you are not being asked to transform. You are being asked to keep coming back. To the longing. To the nourishment. To the rhythm that is yours. To the small flame you named in the lantern tonight.</p>
+    <p>Some days that will look like bare feet on the ground. Some days it will look like a meal you actually made instead of grabbed. Some days it will just look like closing the digital tools an hour earlier and sitting outside even if it's still cold. Taurus doesn't need it to be beautiful yet. Taurus just needs you to show up.</p>
+  </div>
+
+  <div class="noticing stagger s4">
+    <span class="noticing-label">🌿 Between now and May 31st</span>
+    You don't have to tend the intention perfectly. You just have to know it's held. The lantern is sealed. The return is already written into the cycle. Your only job is to stay curious about what's growing.
+  </div>
+
+  <div class="prose stagger s5">
+    <p>Taurus carries things steadily. It doesn't require dramatic action or transformation on a deadline. It asks for one honest beginning — and then the willingness to show up, day by day, to what you've started.</p>
+    <p>When the Blue Moon opens the lantern on May 31st, you'll read what you wrote tonight. And you'll feel the distance traveled. That distance — that's the work. That's what Taurus asks of us.</p>
+  </div>
+
+  <div class="takeaway stagger s6">
+    <div class="takeaway-label">🕯️ The Return</div>
+    <p class="takeaway-text">The return itself is the change. Not the arrival. Not the staying. The returning. Every time you find your way back to what you planted tonight, you are keeping the flame lit. That's all this asks of you.</p>
+  </div>
+
+  <div class="divider stagger s7"></div>
+
+  <div class="about-gems stagger s7">
+    <div class="about-gems-title">🌍 New to GEMS?</div>
+    <p class="about-gems-body">GEMS — Grounded Earth Moving Sky — is a transmission inside Soul Growth Circle that arrives at each new moon, full moon, and celestial turning point. Every time, I translate what the sky is doing through the lens of the nervous system and lived experience.</p>
+    <p class="about-gems-body" style="margin-top:10px;"><strong style="font-style:normal;color:var(--gold-light);">Return to Stillness</strong> is where the daily practice lives — seven short practices to help you find your way back to yourself. Both are free inside Soul Growth Circle.</p>
+  </div>
+
+  <div class="footer-cta stagger s7">
+    <p>Soul Growth Circle is free to join. <strong>Return to Stillness</strong> is waiting for you inside.</p>
+    <a href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener" class="cta-btn">The door is open. 🕯️</a>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-logo">Soul Growth Studio · Tina L. Shafer</div>
+    <div class="footer-links">
+      <a href="https://tinalshafer.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+      <a href="https://tinalshafer.com/terms-conditions/" target="_blank" rel="noopener">Terms of Use</a>
+      <a href="https://tinalshafer.com/disclaimer/" target="_blank" rel="noopener">Disclaimer</a>
+      <a href="https://www.skool.com/bodydialoguemethod/about" target="_blank" rel="noopener">Soul Growth Circle</a>
+    </div>
+    <p class="footer-disclaimer">This content is for educational and informational purposes only and does not constitute medical, psychological, or therapeutic advice. Astrological and mindfulness content is offered as a reflective tool, not a substitute for professional care. Results and experiences vary.</p>
+    <div class="footer-copy">© 2026 Soul Growth Studio · Tina L. Shafer · All rights reserved</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+// ═══ STARFIELD ═══
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, stars = [], meteor = null, meteorTimer = 0;
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+for(let i=0;i<180;i++){
+  stars.push({
+    x:Math.random(), y:Math.random(),
+    r:Math.random()*1.4+0.3,
+    base:Math.random()*0.55+0.1,
+    speed:Math.random()*2+1.5,
+    phase:Math.random()*Math.PI*2,
+    linked:Math.random()<0.12
+  });
+}
+const constEdges = [];
+const cStars = stars.filter(s=>s.linked);
+for(let i=0;i<cStars.length-1;i++){
+  const dx=cStars[i].x-cStars[i+1].x, dy=cStars[i].y-cStars[i+1].y;
+  if(Math.sqrt(dx*dx+dy*dy)<0.18&&Math.random()<0.55) constEdges.push([cStars[i],cStars[i+1]]);
+}
+function spawnMeteor(){
+  meteor={x:Math.random()*0.6+0.1,y:Math.random()*0.3,vx:0.0018+Math.random()*0.001,vy:0.0008+Math.random()*0.0005,len:0.06+Math.random()*0.04,life:1,decay:0.008+Math.random()*0.004};
+}
+function draw(t){
+  ctx.clearRect(0,0,W,H);
+  ctx.lineWidth=0.7;
+  constEdges.forEach(([a,b])=>{ ctx.strokeStyle='rgba(74,122,96,0.07)'; ctx.beginPath(); ctx.moveTo(a.x*W,a.y*H); ctx.lineTo(b.x*W,b.y*H); ctx.stroke(); });
+  stars.forEach(s=>{ const osc=Math.sin(t/1000*s.speed+s.phase), op=s.base+osc*0.15; ctx.beginPath(); ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2); ctx.fillStyle=s.linked?`rgba(201,168,76,${op*0.7})`:`rgba(255,255,255,${op})`; ctx.fill(); });
+  if(meteor){ const tailX=meteor.x*W-meteor.vx*W*meteor.len/meteor.vx, tailY=meteor.y*H-meteor.vy*H*meteor.len/meteor.vy; const grad=ctx.createLinearGradient(tailX,tailY,meteor.x*W,meteor.y*H); grad.addColorStop(0,'rgba(255,255,255,0)'); grad.addColorStop(1,`rgba(255,240,200,${meteor.life*0.9})`); ctx.strokeStyle=grad; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(tailX,tailY); ctx.lineTo(meteor.x*W,meteor.y*H); ctx.stroke(); meteor.x+=meteor.vx; meteor.y+=meteor.vy; meteor.life-=meteor.decay; if(meteor.life<=0||meteor.x>1||meteor.y>0.8) meteor=null; }
+  meteorTimer+=16;
+  if(meteorTimer>14000+Math.random()*8000){ spawnMeteor(); meteorTimer=0; }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+// ═══ TAB NAVIGATION ═══
+const nav = document.getElementById('tabNav');
+function makeSparkle(btn){
+  const sp=document.createElement('div'); sp.className='sparkle';
+  sp.innerHTML=`<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="1.2" stroke-linecap="round"><line x1="18" y1="4" x2="18" y2="10"/><line x1="18" y1="26" x2="18" y2="32"/><line x1="4" y1="18" x2="10" y2="18"/><line x1="26" y1="18" x2="32" y2="18"/><line x1="8" y1="8" x2="12" y2="12"/><line x1="24" y1="24" x2="28" y2="28"/><line x1="28" y1="8" x2="24" y2="12"/><line x1="12" y1="24" x2="8" y2="28"/></g><circle cx="18" cy="18" r="2.5" fill="rgba(201,168,76,0.7)"/></svg>`;
+  btn.appendChild(sp); setTimeout(()=>sp.remove(),600);
+}
+function activate(target){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active','on'));
+  const btn=document.querySelector('.tab[data-tab="'+target+'"]');
+  const panel=document.querySelector('[data-panel="'+target+'"]');
+  if(btn){ btn.classList.add('active'); makeSparkle(btn); }
+  if(panel){ panel.classList.add('active'); requestAnimationFrame(()=>setTimeout(()=>panel.classList.add('on'),60)); }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+nav.addEventListener('click',e=>{ const btn=e.target.closest('.tab'); if(!btn) return; activate(btn.getAttribute('data-tab')); });
+window.addEventListener('load',()=>{
+  const first=document.querySelector('.tab-panel.active');
+  if(first) requestAnimationFrame(()=>setTimeout(()=>first.classList.add('on'),80));
+});
+
+// ═══ LANTERN RITUAL ═══
+const STORAGE_KEY = 'sgs_new_moon_taurus_2026';
+const BLUE_MOON_DATE = new Date('2026-05-31T00:00:00');
+let isLit = false;
+
+window.addEventListener('load', checkLanternState);
+
+function checkLanternState(){
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved){
+      const data = JSON.parse(saved);
+      const now = new Date();
+      lightLanternInstant();
+      if(now >= BLUE_MOON_DATE){
+        showReveal(data.intention);
+      } else {
+        showStep('stepSealed');
+        document.getElementById('tapHintL').classList.add('hidden');
+      }
+    }
+  } catch(e){}
+}
+
+function lightLantern(){
+  if(isLit) return;
+  isLit = true;
+  document.getElementById('lanternSvg').classList.add('lit');
+  document.getElementById('lanternGlow').classList.add('lit');
+  document.getElementById('flameGroup').classList.add('visible');
+  document.getElementById('unlitCandle').style.opacity='0';
+  document.getElementById('tapHintL').classList.add('hidden');
+  spawnParticles();
+  setTimeout(()=>{
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if(!saved) showStep('stepWrite');
+    } catch(e){ showStep('stepWrite'); }
+  }, 900);
+}
+
+function lightLanternInstant(){
+  isLit = true;
+  document.getElementById('lanternSvg').classList.add('lit');
+  document.getElementById('lanternGlow').classList.add('lit');
+  document.getElementById('flameGroup').classList.add('visible');
+  document.getElementById('unlitCandle').style.opacity='0';
+  document.getElementById('tapHintL').classList.add('hidden');
+}
+
+function spawnParticles(){
+  const container = document.getElementById('particlesL');
+  for(let i=0;i<8;i++){
+    setTimeout(()=>{
+      const p = document.createElement('div');
+      p.className='particle-l rising';
+      const rx=(Math.random()-0.5)*40;
+      p.style.cssText=`--rx:${rx}px;--rdur:${Math.random()*1.5+1}s;--rdelay:0s;left:calc(50% + ${(Math.random()-0.5)*10}px);`;
+      container.appendChild(p);
+      setTimeout(()=>p.remove(),3000);
+    }, i*200);
+  }
+}
+
+function sealIntention(){
+  const text = document.getElementById('intentionText').value.trim();
+  if(!text){
+    document.getElementById('intentionText').style.borderColor='rgba(201,168,76,0.6)';
+    document.getElementById('intentionText').placeholder='Write something first, even just a few words...';
+    return;
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ intention:text, sealedAt:new Date().toISOString() }));
+  } catch(e){}
+  hideStep('stepWrite');
+  setTimeout(()=>showStep('stepSealed'),400);
+  spawnParticles();
+  setTimeout(spawnParticles,800);
+}
+
+function showReveal(intention){
+  document.getElementById('revealText').textContent = intention;
+  showStep('stepReveal');
+}
+
+function showStep(id){
+  const el=document.getElementById(id);
+  el.classList.add('visible');
+}
+function hideStep(id){
+  const el=document.getElementById(id);
+  el.classList.remove('visible');
+  el.style.opacity='0';
+}
+
+// expose for onclick
+window.lightLantern = lightLantern;
+window.sealIntention = sealIntention;
+
+})();
+</script>
+</body>
+</html>
